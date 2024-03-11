@@ -1,0 +1,51 @@
+{% set class = {
+    base: block.className|default(""),
+    default: {
+        "background": "white"
+    },
+    background: {
+        "none": "",
+        "white": "bg-white",
+        "black": "bg-black"
+    },
+    padding: {
+        "none": "",
+        "small": "py-10",
+        "large": "py-20"
+    }
+}|mergeClass({
+    background: fields.dark_mode ? "black" : background,
+    padding: padding ?? fields.margin.sizes ?? "large"
+},
+    className,
+    fields.dark_mode ? "dark",
+    fields.margin.top_remove ? "pt-0 lg:pt-0",
+    fields.margin.bottom_remove ? "pb-0 lg:pb-0"
+)%}
+
+{% set background = "" %}
+{% set className = "" %}
+
+{% set containerClass = {
+    base: "",
+    default: {
+        "containerType": "normal"
+    },
+    containerType: {
+        "normal": "container",
+        "fluid": "max-w-[1400px] m-auto px-20"
+    }
+}|mergeClass({containerType}) %}
+
+{% set anchor = block.anchor|default(fields.anchor)|default(null) %}
+
+<section class="{{ class }}" {% if anchor %}id="{{ anchor }}"{% endif %}>
+    <div class="{{ containerClass }}">
+        {% block intro %}{% endblock %}
+        {% block content %}{% endblock %}
+        {% block cta %}{% endblock %}
+    </div>
+</section>
+
+
+

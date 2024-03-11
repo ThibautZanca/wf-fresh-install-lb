@@ -1,0 +1,28 @@
+{% import "components/typography/typography.html.twig" as typography %}
+{% set title = title %}
+{% set description = description %}
+{% set id = index %}
+<div :class="isOpen({{ id }}) ? 'is-active' : '' ">
+    <div class="flex cursor-pointer items-center justify-between gap-4 bg-gray-200 is-active:bg-gray-400 p-6 rounded transition-all select-none"
+         @click="open({{ id }})">
+        {{ typography.heading({
+            content: title,
+            className: '',
+        }) }}
+        <div class="is-active:rotate-180 transition-all flex-shrink-0 bg-red-200 w-8 h-8">
+            <i class="fa-solid fa-chevron-up"></i>
+            {# @TODO verifier que l’anim match avec l’icon #}
+        </div>
+
+    </div>
+
+    <div class="overflow-hidden bg-gray-100 transition-all max-h-0" x-ref="container-{{ id }}">
+        <div class="p-6">
+            {{ typography.text({
+                content: description,
+                className: '',
+            }) }}
+        </div>
+    </div>
+
+</div>

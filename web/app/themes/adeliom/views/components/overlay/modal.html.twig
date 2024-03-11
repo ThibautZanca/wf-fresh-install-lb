@@ -1,0 +1,35 @@
+{% set modalID = obj.modalID is defined ? obj.modalID : 'modal-fade' %}
+{% set effect = obj.effect is defined ? obj.effect : 'slide-fade' %}
+
+<div
+    class="modal micromodal-slide fixed inset-0 z-10 grid place-content-center w-full h-full {{ effect }}"
+    id="{{ modalID }}"
+    aria-hidden="true"
+>
+    <div
+        class="modal-overlay absolute inset-0 w-full h-full bg-black/70"
+        tabindex="-1"
+        data-micromodal-close
+    ></div>
+    <div
+        class="modal-container bg-white box-border z-50 w-[400px] h-fit shadow-lg"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-1-title"
+    >
+        <header class="modal-header flex items-center justify-between p-4">
+            <h2 class="modal-title" id="modal-1-title">Micromodal</h2>
+            <button
+                class="modal-close"
+                aria-label="Close modal"
+                data-micromodal-close
+            >
+                X
+            </button>
+        </header>
+
+        <div class="modal-content" id="modal-1-content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>

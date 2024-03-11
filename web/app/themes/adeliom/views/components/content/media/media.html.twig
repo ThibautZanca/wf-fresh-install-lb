@@ -1,0 +1,48 @@
+{% set media = media ?? fields.media %}
+
+{% set class = {
+    base: "",
+    default: {}
+}|mergeClass({}, className) %}
+
+
+<div class="{{ wrapper.className }}">
+
+    {% if media.type != "video" %}
+
+        {% if media.image %}
+
+            {% set optionsMedia = {
+                className: class,
+                media: media.image,
+            }|merge(optionsMedia ?? {}) %}
+
+            {% include "components/content/media/image.html.twig" with optionsMedia only %}
+
+        {% endif %}
+
+    {% else %}
+
+        {% set optionsMedia = {
+            className: class,
+            media: media.video.thumbnail
+        }|merge(optionsMedia ?? {}) %}
+
+        {% set videoURL = "" %}
+
+        {% if media.video.is_youtube %}
+            {% set videoURL = "https://www.youtube.com/embed/" ~ media.video.id %}
+        {% else %}
+            {% set videoURL = media.video.file %}
+        {% endif %}
+
+        <a class="js-glightbox-video-single relative" href="{{ videoURL }}">
+            <div class="absolute w-full h-full top-0 left-0 bg-black/40"></div>
+            {% include "components/content/media/image.html.twig" with optionsMedia only %}
+            {% include "components/action/button/btn-play.html.twig" %}
+        </a>
+
+    {% endif %}
+
+</div>
+

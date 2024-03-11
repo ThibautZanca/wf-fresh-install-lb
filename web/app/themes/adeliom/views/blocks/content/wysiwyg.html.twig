@@ -1,0 +1,13 @@
+{% embed "blocks/block.html.twig" %}
+    {% block content %}
+
+        {% import "components/typography/typography.html.twig" as typography %}
+        {{ typography.textGroup({
+            fields,
+            title: {
+                size: 2,
+            }
+        }) }}
+
+    {% endblock %}
+{% endembed %}
